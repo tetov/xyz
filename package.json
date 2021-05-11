@@ -56,6 +56,7 @@
     "gatsby-plugin-image": "^1.3.0",
     "gatsby-plugin-manifest": "^3.3.0",
     "gatsby-plugin-postcss": "^4.3.0",
+    "gatsby-plugin-preact": "^5.4.0",
     "gatsby-plugin-react-helmet": "^4.3.0",
     "gatsby-plugin-sharp": "^3.3.0",
     "gatsby-plugin-typegen": "^2.2.4",
@@ -77,6 +78,8 @@
     "mitt": "^2.1.0",
     "platform": "^1.3.6",
     "postcss": "^8.2.10",
+    "preact": "^10.5.13",
+    "preact-render-to-string": "^5.1.19",
     "prettier": "^2.2.1",
     "prismjs": "^1.23.0",
     "prop-types": "^15.7.2",
@@ -91,5 +94,8 @@
     "tailwindcss": "^2.1.1",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "@prefresh/babel-plugin": "^0.4.1"
   }
 }

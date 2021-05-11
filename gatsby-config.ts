@@ -71,6 +71,7 @@ export default {
         icon: `./src/images/icon.png`,
       },
     },
+    `gatsby-plugin-preact`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
