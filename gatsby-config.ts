@@ -4,6 +4,13 @@ export default {
     description: `Projects & blog`,
     siteUrl: `https://tetov.xyz`,
     lang: "en",
+    navLinks: [
+      { text: "projects", link: "/" },
+      { text: "blog", slug: "/blog" },
+      { text: "notes", slug: "/notes" },
+      { text: "contact", slug: "/contact" },
+      { text: "about", slug: "/about" },
+    ],
   },
   plugins: [
     `gatsby-plugin-catch-links`,
