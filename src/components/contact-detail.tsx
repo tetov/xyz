@@ -1,59 +1,53 @@
-import classNames from "classnames"
-import React from "react"
+import type { Argument as classNamesArgument } from "classnames";
+import classNames from "classnames";
+import * as Icons from "icons";
+import React from "react";
+import type { IconBaseProps } from "react-icons/lib";
 
-import * as Icons from "../icons"
+type JSXSpan = JSX.IntrinsicElements["span"];
+type JSXA = JSX.IntrinsicElements["a"];
 
-import type { IconBaseProps } from "react-icons/lib"
-import type { Argument as classNamesArgument } from "classnames"
+const Detail: React.FC<JSXSpan> = ({ className, children }) => (
+  <span className={className}>{children}</span>
+);
 
-import type { IContactData } from "../types"
+const LinkedDetail: React.FC<JSXA> = ({ className, href, rel, children }) => {
+  return <a {...{ className, href, rel, children }} />;
+};
 
-type ContactDetailProp = {
-  contactData: Partial<IContactData>
-  className?: classNamesArgument
-  iconProp?: Partial<IconBaseProps>
-}
+type Prop = {
+  contactData: Partial<GatsbyTypes.ContactData>;
+  className?: classNamesArgument;
+  iconProp?: Partial<IconBaseProps>;
+  useIcon?: boolean;
+};
 
-type ContactLinkProp = JSX.IntrinsicElements["a"] & {
-  children: React.ReactNode
-}
-
-type ContactNotLinkProp = JSX.IntrinsicElements["span"] & {
-  children: React.ReactNode
-}
-
-const ContactLink = ({ children, ...prop }: ContactLinkProp) => (
-  <a rel="me external" {...prop}>
-    {children}
-  </a>
-)
-
-const ContactNotLink = ({ children, ...prop }: ContactNotLinkProp) => (
-  <span {...prop}>{children}</span>
-)
-
-const ContactDetail = ({
-  contactData: { text, url, icon, hcard },
+const ContactDetail: React.FC<Prop> = ({
+  contactData: { text, url, icon, hcard, rel },
   className,
   iconProp = {},
-}: ContactDetailProp) => {
-  iconProp["aria-hidden"] = true
-  const Icon = icon ? Icons[icon] : undefined
+  useIcon = true,
+}) => {
+  iconProp["aria-hidden"] = true;
+  const Icon = icon ? Icons[icon] : undefined;
 
-  const prop = {
+  const relAttribute = rel ? rel.join(" ") : "me external";
+
+  const prop: JSXA | JSXSpan = {
+    className: classNames(hcard, className) || undefined,
+    href: url,
+    rel: relAttribute,
     children: (
       <>
-        {icon && <Icon {...iconProp} />}
-        {text || ""}
+        {icon && useIcon && <Icon {...iconProp} />}
+        {text}
       </>
     ),
-    className: (hcard || className) && classNames(hcard, className),
-    href: url || undefined,
-  }
+  };
 
-  const ContactComponent = url ? ContactLink : ContactNotLink
+  const Component = url ? LinkedDetail : Detail;
 
-  return <ContactComponent {...prop} />
-}
+  return <Component {...prop} />;
+};
 
-export default ContactDetail
+export default ContactDetail;

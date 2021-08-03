@@ -1,8 +1,8 @@
 export default {
   siteMetadata: {
-    title: `tetov xyz`,
+    title: `tetov.xyz`,
     description: `Projects & blog`,
-    siteUrl: `https://tetov.xyz`,
+    siteURL: `https://tetov.xyz`,
     lang: "en",
   },
   plugins: [
@@ -16,7 +16,7 @@ export default {
               siteMetadata {
                 title
                 description
-                siteUrl
+                siteURL
               }
             }
           }
@@ -28,11 +28,11 @@ export default {
                 return Object.assign({}, node.frontmatter, {
                   description: node.frontmatter.description || node.excerpt,
                   date: node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + node.fields.slug,
+                  url: site.siteMetadata.siteURL + node.fields.slug,
+                  guid: site.siteMetadata.siteURL + node.fields.slug,
                   custom_elements: [{ "content:encoded": node.html }],
-                })
-              })
+                });
+              });
             },
             query: `
               {
@@ -68,7 +68,7 @@ export default {
         background_color: `#111111`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `./src/images/icon.png`,
+        icon: `./src/images/logo.png`,
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -85,10 +85,6 @@ export default {
           /\/_\w+/,
         ],
       },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: { name: `data`, path: `${__dirname}/data/` },
     },
     {
       resolve: `gatsby-plugin-typegen`,
@@ -152,4 +148,4 @@ export default {
     `gatsby-transformer-yaml`,
     `gatsby-plugin-typescript`,
   ],
-}
+};

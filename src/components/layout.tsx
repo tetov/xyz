@@ -1,25 +1,24 @@
-import React from "react"
+import Footer from "components/footer";
+import Header, { HeaderProp } from "components/header";
+import type { MetaProp } from "components/meta";
+import { MetaSiteWide } from "components/meta";
+import React from "react";
 
-import Footer from "./footer"
-import Header, { HeaderProp } from "./header"
-import SEO, { SEOProp } from "./seo"
-
-type LayoutProp = SEOProp &
-  HeaderProp & {
-    children: React.ReactNode
-  }
-
-const Layout = ({ children, subHeading, ...seoProps }: LayoutProp) => {
+const Layout: React.FC<HeaderProp & MetaProp> = ({
+  children,
+  subHeading,
+  pathName,
+}) => {
   return (
     <div className="global-wrapper min-h-screen bg-light-bg dark:bg-dark-bg text-light-text dark:text-dark-text">
-      <SEO {...seoProps} />
+      <MetaSiteWide pathName={pathName} />
       <div className="w-full md:w-3/4 lg:w-1/2 mx-auto px-5 space-y-6">
         <Header subHeading={subHeading} />
         <main>{children}</main>
         <Footer />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;

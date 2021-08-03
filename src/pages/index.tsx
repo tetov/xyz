@@ -1,48 +1,49 @@
-import { graphql, Link } from "gatsby"
-import React from "react"
+import ContactDetail from "components/contact-detail";
+import { ContentPreview } from "components/content";
+import HeroProj from "components/hero-proj";
+import Layout from "components/layout";
+import { graphql, Link } from "gatsby";
+import React from "react";
 
-import ContactDetail from "../components/contact-detail"
-import ContentPreview from "../components/content-preview"
-import HeroProj from "../components/hero-proj"
-import Layout from "../components/layout"
+const Index: GatsbyPage<GatsbyTypes.IndexQuery> = ({
+  data: {
+    allMarkdownRemark: { nodes: mdNodes },
+    allContactData: { nodes: contactDataNodes },
+  },
+  location,
+}) => {
+  const [heroProj, ...projNodes] = mdNodes;
 
-const Index: GatsbyPage<GatsbyTypes.IndexQuery> = ({ data }) => {
-  const contentNodes = data.allMarkdownRemark.nodes
-
-  const [heroProj, ...projNodes] = contentNodes
-          const subHeading= (
-          <>
-            Hi! I'm Anton Tetov, I'm an architect, programmer and maker. These
-            are some of my projects.{" "}
-            <Link to="/contact" className="link-style">
-              Want to say hi?
-            </Link>
-          </>
-          )
+  const subHeading = (
+    <>
+      Hi! I'm Anton Tetov, I'm an architect, programmer and maker. These are
+      some of my projects.{" "}
+      <Link to="/contact" className="link-style">
+        Want to say hi?
+      </Link>
+    </>
+  );
 
   return (
-    <Layout subHeading={subHeading}>
-      <>
-        <HeroProj {...heroProj} />
-        <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32 mb-8">
-          {projNodes.map((node) => (
-            <ContentPreview key={node.id} {...node} />
+    <Layout pathName={location.pathname} subHeading={subHeading}>
+      <HeroProj {...heroProj} />
+      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32 mb-8">
+        {projNodes.map((node) => (
+          <ContentPreview key={node.id} {...node} />
+        ))}
+      </div>
+      <div className="h-card hidden" aria-hidden={true}>
+        {contactDataNodes
+          .filter((n) => n.url || n.hcard)
+          .map((n) => (
+            <ContactDetail key={n.id} contactData={n} useIcon={false} />
           ))}
-        </div>
-        {/* Hidden h-card */}
-        <div className="h-card hidden" aria-hidden={true}>
-          {data.allContactData.nodes
-            .filter((n) => n.url || n.hcard)
-            .map((n) => (
-              <ContactDetail key={n.id} contactData={n} />
-            ))}
-        </div>
-      </>
+      </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;
 
 // Query with /(DIR)/
 export const pageQuery = graphql`
@@ -64,7 +65,8 @@ export const pageQuery = graphql`
         url
         hcard
         text
+        rel
       }
     }
   }
-`
+`;
