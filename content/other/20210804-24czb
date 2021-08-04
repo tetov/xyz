@@ -1,0 +1,7 @@
+---
+date: 2021-08-04T09:35:37.028Z
+slug: 24czb
+photo:
+  - url: https://micropub.rocks/media/sunset.jpg
+---
+Micropub test of creating a photo referenced by URL. This post should include a photo of a sunset.
