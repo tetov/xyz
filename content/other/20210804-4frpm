@@ -1,0 +1,8 @@
+---
+date: 2021-08-04T09:37:02.943Z
+slug: 4frpm
+photo:
+  - url: https://micropub.rocks/media/sunset.jpg
+    alt: Photo of a sunset
+---
+Micropub test of creating a photo referenced by URL with alt text. This post should include a photo of a sunset.
